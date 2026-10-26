@@ -1,8 +1,13 @@
-
 from datetime import date, datetime
 from decimal import Decimal
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    field_validator,
+    model_validator,
+)
 
 
 class BudgetCreate(BaseModel):
@@ -30,6 +35,24 @@ class BudgetUpdate(BaseModel):
         max_digits=12,
         decimal_places=2,
     )
+
+    @model_validator(mode="before")
+    @classmethod
+    def validate_update_data(cls, data):
+        if not isinstance(data, dict):
+            return data
+
+        if not data:
+            raise ValueError(
+                "Provide at least one field to update."
+            )
+
+        if "amount" in data and data["amount"] is None:
+            raise ValueError(
+                "Budget amount cannot be null."
+            )
+
+        return data
 
 
 class BudgetResponse(BaseModel):

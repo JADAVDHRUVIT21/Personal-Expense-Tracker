@@ -1,3 +1,4 @@
+
 from datetime import date
 from decimal import Decimal
 
@@ -37,9 +38,14 @@ def create_expense(
         user_id=user_id,
     )
 
-    db.add(expense)
-    db.commit()
-    db.refresh(expense)
+    try:
+        db.add(expense)
+        db.commit()
+        db.refresh(expense)
+    except Exception:
+        db.rollback()
+        raise
+
     return expense
 
 
@@ -152,8 +158,13 @@ def update_expense(
     for field, value in updates.items():
         setattr(expense, field, value)
 
-    db.commit()
-    db.refresh(expense)
+    try:
+        db.commit()
+        db.refresh(expense)
+    except Exception:
+        db.rollback()
+        raise
+
     return expense
 
 
@@ -161,5 +172,9 @@ def delete_expense(
     db: Session,
     expense: Expense,
 ) -> None:
-    db.delete(expense)
-    db.commit()
+    try:
+        db.delete(expense)
+        db.commit()
+    except Exception:
+        db.rollback()
+        raise

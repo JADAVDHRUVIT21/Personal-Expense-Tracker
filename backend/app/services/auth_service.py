@@ -1,5 +1,5 @@
 
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from app.core.security import hash_password, verify_password
@@ -10,8 +10,12 @@ from app.schemas.user import UserRegister
 def register_user(db: Session, user_data: UserRegister) -> User:
     """Register a new user after checking email uniqueness."""
 
+    normalized_email = str(user_data.email).strip().lower()
+
     existing_user = db.scalar(
-        select(User).where(User.email == user_data.email)
+        select(User).where(
+            func.lower(User.email) == normalized_email
+        )
     )
 
     if existing_user:
@@ -19,7 +23,7 @@ def register_user(db: Session, user_data: UserRegister) -> User:
 
     user = User(
         full_name=user_data.full_name.strip(),
-        email=str(user_data.email).lower(),
+        email=normalized_email,
         hashed_password=hash_password(user_data.password),
     )
 

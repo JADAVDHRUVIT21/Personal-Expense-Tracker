@@ -1,4 +1,3 @@
-
 from datetime import date
 
 from sqlalchemy import select
@@ -30,17 +29,19 @@ def create_budget(
         user_id=user_id,
     )
 
-    db.add(budget)
-
     try:
+        db.add(budget)
         db.commit()
+        db.refresh(budget)
     except IntegrityError as exc:
         db.rollback()
         raise ValueError(
             "A budget already exists for this month."
         ) from exc
+    except Exception:
+        db.rollback()
+        raise
 
-    db.refresh(budget)
     return budget
 
 
@@ -88,11 +89,25 @@ def update_budget(
     for field, value in updates.items():
         setattr(budget, field, value)
 
-    db.commit()
-    db.refresh(budget)
+    try:
+        db.commit()
+        db.refresh(budget)
+    except IntegrityError as exc:
+        db.rollback()
+        raise ValueError(
+            "The budget conflicts with an existing database record."
+        ) from exc
+    except Exception:
+        db.rollback()
+        raise
+
     return budget
 
 
 def delete_budget(db: Session, budget: Budget) -> None:
-    db.delete(budget)
-    db.commit()
+    try:
+        db.delete(budget)
+        db.commit()
+    except Exception:
+        db.rollback()
+        raise

@@ -1,5 +1,5 @@
-
-from sqlalchemy import select
+from sqlalchemy import func, select
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from app.models.category import Category
@@ -45,9 +45,10 @@ DEFAULT_CATEGORIES = [
 def seed_default_categories(db: Session) -> None:
     """Insert default categories that do not already exist."""
 
-    existing_names = set(
-        db.scalars(select(Category.name)).all()
-    )
+    existing_names = {
+        name.casefold()
+        for name in db.scalars(select(Category.name)).all()
+    }
 
     missing_categories = [
         Category(
@@ -56,19 +57,30 @@ def seed_default_categories(db: Session) -> None:
             is_default=True,
         )
         for item in DEFAULT_CATEGORIES
-        if item["name"] not in existing_names
+        if item["name"].casefold() not in existing_names
     ]
 
     if not missing_categories:
         return
 
-    db.add_all(missing_categories)
-
     try:
+        db.add_all(missing_categories)
         db.commit()
-    except Exception:
+    except IntegrityError:
         db.rollback()
-        raise
+
+        # Another request may have inserted the categories
+        # concurrently. Recheck before deciding whether to fail.
+        existing_names = {
+            name.casefold()
+            for name in db.scalars(select(Category.name)).all()
+        }
+
+        if any(
+            item["name"].casefold() not in existing_names
+            for item in DEFAULT_CATEGORIES
+        ):
+            raise
 
 
 def get_categories(db: Session) -> list[Category]:
@@ -89,15 +101,21 @@ def create_category(
 
     name = category_data.name.strip()
 
-    if not name:
-        raise ValueError("Category name cannot be empty.")
+    if len(name) < 2:
+        raise ValueError(
+            "Category name must contain at least 2 characters."
+        )
 
     existing_category = db.scalar(
-        select(Category).where(Category.name.ilike(name))
+        select(Category).where(
+            func.lower(Category.name) == name.lower()
+        )
     )
 
-    if existing_category:
-        raise ValueError("A category with this name already exists.")
+    if existing_category is not None:
+        raise ValueError(
+            "A category with this name already exists."
+        )
 
     category = Category(
         name=name,
@@ -105,9 +123,8 @@ def create_category(
         is_default=False,
     )
 
-    db.add(category)
-
     try:
+        db.add(category)
         db.commit()
         db.refresh(category)
     except Exception:
