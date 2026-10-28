@@ -1,3 +1,4 @@
+
 from datetime import date, datetime
 from decimal import Decimal
 
@@ -17,6 +18,7 @@ class BudgetCreate(BaseModel):
         decimal_places=2,
     )
     month: date
+    category_id: int = Field(gt=0)
 
     @field_validator("month")
     @classmethod
@@ -59,6 +61,7 @@ class BudgetResponse(BaseModel):
     id: int
     amount: Decimal
     month: date
+    category_id: int
     user_id: int
     created_at: datetime
 

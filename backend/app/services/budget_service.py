@@ -1,3 +1,4 @@
+
 from datetime import date
 
 from sqlalchemy import select
@@ -5,6 +6,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from app.models.budget import Budget
+from app.models.category import Category
 from app.schemas.budget import BudgetCreate, BudgetUpdate
 
 
@@ -13,19 +15,35 @@ def create_budget(
     budget_data: BudgetCreate,
     user_id: int,
 ) -> Budget:
+    # Confirm that the selected category exists.
+    category = db.scalar(
+        select(Category).where(
+            Category.id == budget_data.category_id,
+        )
+    )
+
+    if category is None:
+        raise ValueError("The selected category does not exist.")
+
+    # Allow multiple budgets in the same month, but only one
+    # budget for each category per user per month.
     existing_budget = db.scalar(
         select(Budget).where(
             Budget.user_id == user_id,
+            Budget.category_id == budget_data.category_id,
             Budget.month == budget_data.month,
         )
     )
 
     if existing_budget is not None:
-        raise ValueError("A budget already exists for this month.")
+        raise ValueError(
+            "A budget already exists for this category and month."
+        )
 
     budget = Budget(
         amount=budget_data.amount,
         month=budget_data.month,
+        category_id=budget_data.category_id,
         user_id=user_id,
     )
 
@@ -36,7 +54,8 @@ def create_budget(
     except IntegrityError as exc:
         db.rollback()
         raise ValueError(
-            "A budget already exists for this month."
+            "A budget already exists for this category and month, "
+            "or the selected category is invalid."
         ) from exc
     except Exception:
         db.rollback()
@@ -50,7 +69,9 @@ def get_budgets(
     user_id: int,
     year: int | None = None,
 ) -> list[Budget]:
-    query = select(Budget).where(Budget.user_id == user_id)
+    query = select(Budget).where(
+        Budget.user_id == user_id,
+    )
 
     if year is not None:
         query = query.where(
@@ -58,7 +79,10 @@ def get_budgets(
             Budget.month < date(year + 1, 1, 1),
         )
 
-    query = query.order_by(Budget.month.desc())
+    query = query.order_by(
+        Budget.month.desc(),
+        Budget.category_id.asc(),
+    )
 
     return list(db.scalars(query).all())
 
@@ -104,7 +128,10 @@ def update_budget(
     return budget
 
 
-def delete_budget(db: Session, budget: Budget) -> None:
+def delete_budget(
+    db: Session,
+    budget: Budget,
+) -> None:
     try:
         db.delete(budget)
         db.commit()

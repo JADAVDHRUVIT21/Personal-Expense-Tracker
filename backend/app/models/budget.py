@@ -21,8 +21,9 @@ class Budget(Base):
     __table_args__ = (
         UniqueConstraint(
             "user_id",
+            "category_id",
             "month",
-            name="uq_budgets_user_id_month",
+            name="uq_budgets_user_category_month",
         ),
     )
 
@@ -42,6 +43,12 @@ class Budget(Base):
         index=True,
     )
 
+    category_id: Mapped[int] = mapped_column(
+        ForeignKey("categories.id", ondelete="CASCADE"),
+        index=True,
+        nullable=False,
+    )
+
     user_id: Mapped[int] = mapped_column(
         ForeignKey("users.id", ondelete="CASCADE"),
         index=True,
@@ -57,3 +64,5 @@ class Budget(Base):
     user: Mapped["User"] = relationship(
         back_populates="budgets",
     )
+
+    category = relationship("Category")

@@ -5,7 +5,6 @@ from sqlalchemy.orm import Session
 
 from app.core.dependencies import get_current_user
 from app.db.session import get_db
-from app.models.budget import Budget
 from app.models.user import User
 from app.schemas.budget import (
     BudgetCreate,
@@ -35,16 +34,21 @@ def add_budget(
 ):
     try:
         return create_budget(db, budget_data, current_user.id)
+
     except ValueError as exc:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
             detail=str(exc),
         ) from exc
+
     except IntegrityError as exc:
         db.rollback()
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
-            detail="A budget already exists for this month.",
+            detail=(
+                "A budget already exists for this category and month, "
+                "or the selected category is invalid."
+            ),
         ) from exc
 
 
@@ -67,7 +71,11 @@ def read_budget(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
-    budget = get_budget_by_id(db, budget_id, current_user.id)
+    budget = get_budget_by_id(
+        db,
+        budget_id,
+        current_user.id,
+    )
 
     if budget is None:
         raise HTTPException(
@@ -85,7 +93,11 @@ def edit_budget(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
-    budget = get_budget_by_id(db, budget_id, current_user.id)
+    budget = get_budget_by_id(
+        db,
+        budget_id,
+        current_user.id,
+    )
 
     if budget is None:
         raise HTTPException(
@@ -95,6 +107,7 @@ def edit_budget(
 
     try:
         return update_budget(db, budget, budget_data)
+
     except ValueError as exc:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -111,7 +124,11 @@ def remove_budget(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
-    budget = get_budget_by_id(db, budget_id, current_user.id)
+    budget = get_budget_by_id(
+        db,
+        budget_id,
+        current_user.id,
+    )
 
     if budget is None:
         raise HTTPException(

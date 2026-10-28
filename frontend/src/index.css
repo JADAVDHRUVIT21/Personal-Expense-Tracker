@@ -1,0 +1,557 @@
+@import "tailwindcss";
+
+:root {
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* --- LIGHT THEME VARIABLES --- */
+  --bg-main: #f8fafc;
+  --card-background: #ffffff;
+  --text-primary: #172033;
+  --text-secondary: #737b8c;
+  --border-color: #e5e7eb;
+  --input-background: #ffffff;
+  
+  --primary-color: #4f46e5;
+  --primary-hover: #4338ca;
+  --primary-light-bg: #eef2ff;
+  
+  --danger-color: #be123c;
+  --danger-light-bg: #fff1f2;
+  --danger-hover-bg: #ffe4e6;
+  
+  --success-color: #047857;
+  --success-light-bg: #ecfdf5;
+}
+
+/* --- DARK THEME VARIABLES --- */
+[data-theme="dark"] {
+  --bg-main: #0f172a;
+  --card-background: #1e293b;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --border-color: #334155;
+  --input-background: #0f172a;
+  
+  --primary-color: #6366f1;
+  --primary-hover: #818cf8;
+  --primary-light-bg: #312e81;
+  
+  --danger-color: #f43f5e;
+  --danger-light-bg: #4c0519;
+  --danger-hover-bg: #881337;
+  
+  --success-color: #10b981;
+  --success-light-bg: #064e3b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: var(--bg-main);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+/* --- CATEGORIES PAGE STYLES --- */
+
+.categories-page {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px;
+  color: var(--text-primary);
+}
+
+.categories-header,
+.categories-list-heading,
+.categories-card-heading,
+.categories-form,
+.category-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.categories-header {
+  margin-bottom: 28px;
+}
+
+.categories-eyebrow {
+  margin: 0 0 8px;
+  color: var(--primary-color);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+}
+
+.categories-header h1 {
+  margin: 0;
+  font-size: clamp(28px, 4vw, 36px);
+  font-weight: 750;
+  letter-spacing: -1px;
+}
+
+.categories-subtitle,
+.categories-card-heading p,
+.categories-list-heading p {
+  margin: 8px 0 0;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.categories-count {
+  display: flex;
+  min-width: 100px;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  background: var(--card-background);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.categories-count-number {
+  font-size: 26px;
+  font-weight: 750;
+}
+
+.categories-count-label {
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+
+.categories-card,
+.categories-list-section {
+  margin-bottom: 24px;
+  padding: 24px;
+  border: 1px solid var(--border-color);
+  border-radius: 18px;
+  background: var(--card-background);
+  box-shadow: 0 5px 22px rgb(15 23 42 / 4%);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+[data-theme="dark"] .categories-card,
+[data-theme="dark"] .categories-list-section {
+  box-shadow: 0 5px 22px rgb(0 0 0 / 20%);
+}
+
+.categories-card-heading {
+  justify-content: flex-start;
+  margin-bottom: 22px;
+}
+
+.categories-card h2,
+.categories-list-section h2 {
+  margin: 0;
+  font-size: 19px;
+}
+
+.categories-icon,
+.category-item-icon {
+  display: grid;
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  place-items: center;
+  border-radius: 14px;
+  background: var(--primary-light-bg);
+  color: var(--primary-color);
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.categories-form {
+  align-items: flex-end;
+}
+
+.categories-input-group {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.categories-input-group label {
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.categories-input-group input {
+  width: 100%;
+  min-height: 46px;
+  padding: 12px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  outline: none;
+  background: var(--input-background);
+  color: var(--text-primary);
+  transition: border-color 0.2s, box-shadow 0.2s, background-color 0.3s ease;
+}
+
+.categories-input-group input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgb(99 102 241 / 12%);
+}
+
+.categories-primary-button,
+.categories-refresh-button,
+.category-delete-button {
+  min-height: 42px;
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 10px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 650;
+  cursor: pointer;
+  transition: opacity 0.2s, background 0.2s;
+}
+
+.categories-primary-button {
+  min-height: 46px;
+  background: var(--primary-color);
+  color: #fff;
+  white-space: nowrap;
+}
+
+.categories-primary-button:hover {
+  background: var(--primary-hover);
+}
+
+.categories-primary-button:disabled,
+.categories-refresh-button:disabled,
+.category-delete-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.categories-refresh-button {
+  border: 1px solid var(--border-color);
+  background: var(--card-background);
+  color: var(--text-primary);
+}
+
+.categories-refresh-button:hover {
+  background: var(--bg-main);
+}
+
+.categories-list-heading {
+  margin-bottom: 22px;
+}
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.category-item {
+  min-width: 0;
+  justify-content: flex-start;
+  padding: 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  background: var(--card-background);
+}
+
+.category-item-icon {
+  width: 42px;
+  height: 42px;
+  font-size: 18px;
+}
+
+.category-item-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.category-item-details h3 {
+  overflow-wrap: anywhere;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.category-item-details p {
+  margin: 5px 0 0;
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+
+.category-delete-button {
+  min-height: 36px;
+  padding: 8px 10px;
+  background: var(--danger-light-bg);
+  color: var(--danger-color);
+}
+
+.category-delete-button:hover {
+  background: var(--danger-hover-bg);
+}
+
+.categories-alert {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+  padding: 13px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.categories-alert button {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.categories-alert-error {
+  background: var(--danger-light-bg);
+  color: var(--danger-color);
+}
+
+.categories-alert-success {
+  background: var(--success-light-bg);
+  color: var(--success-color);
+}
+
+.categories-empty-state {
+  display: flex;
+  min-height: 180px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+}
+
+.categories-empty-icon {
+  margin-bottom: 12px;
+  color: var(--primary-color);
+  font-size: 38px;
+}
+
+.categories-empty-state h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.categories-empty-state p {
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+
+.categories-spinner {
+  width: 26px;
+  height: 26px;
+  border: 3px solid var(--primary-light-bg);
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: categories-spin 0.8s linear infinite;
+}
+
+@keyframes categories-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 700px) {
+  .categories-page {
+    padding: 20px 14px;
+  }
+
+  .categories-card,
+  .categories-list-section {
+    padding: 18px;
+  }
+
+  .categories-form {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .categories-primary-button {
+    width: 100%;
+  }
+
+  .categories-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .categories-count {
+    min-width: 75px;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 420px) {
+  .categories-header {
+    align-items: flex-start;
+  }
+
+  .category-item {
+    flex-wrap: wrap;
+  }
+
+  .category-delete-button {
+    margin-left: auto;
+  }
+}
+
+/* --- IOS MODAL STYLES --- */
+
+.ios-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgb(0 0 0 / 42%);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  animation: ios-backdrop-in 0.18s ease-out;
+}
+
+.ios-confirm-modal {
+  width: 100%;
+  max-width: 360px;
+  padding: 28px 24px 20px;
+  border: 1px solid var(--border-color);
+  border-radius: 26px;
+  background: var(--card-background);
+  color: var(--text-primary);
+  text-align: center;
+  box-shadow: 0 24px 80px rgb(0 0 0 / 22%);
+  animation: ios-modal-in 0.24s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+[data-theme="dark"] .ios-confirm-modal {
+  border-color: #475569;
+  box-shadow: 0 24px 80px rgb(0 0 0 / 60%);
+}
+
+.ios-delete-icon {
+  display: grid;
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 16px;
+  place-items: center;
+  border-radius: 19px;
+  background: var(--danger-light-bg);
+  color: var(--danger-color);
+  font-size: 24px;
+}
+
+.ios-confirm-modal h2 {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: -0.45px;
+}
+
+.ios-confirm-modal p {
+  margin: 12px 0 24px;
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.ios-confirm-modal p strong {
+  color: var(--text-primary);
+  font-weight: 650;
+}
+
+.ios-modal-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.ios-modal-actions button {
+  min-height: 46px;
+  padding: 12px;
+  border: 0;
+  border-radius: 13px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 650;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.15s ease, background 0.2s;
+}
+
+.ios-modal-actions button:active {
+  transform: scale(0.97);
+}
+
+.ios-modal-actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.ios-cancel-button {
+  background: var(--bg-main);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.ios-cancel-button:hover {
+  background: var(--border-color);
+}
+
+.ios-confirm-delete-button {
+  background: #ff3b30;
+  color: #fff;
+}
+
+.ios-confirm-delete-button:hover {
+  background: #e52f26;
+}
+
+@keyframes ios-backdrop-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes ios-modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ios-modal-backdrop,
+  .ios-confirm-modal {
+    animation: none;
+  }
+}
