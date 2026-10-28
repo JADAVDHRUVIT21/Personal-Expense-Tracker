@@ -412,31 +412,31 @@ The application runs its logout logic and navigates to /login.
 Screenshots are important because they demonstrate the actual working application.
 
 **### 10.1 Login Page**
-![Login Page](https://raw.githubusercontent.com/JADAVDHRUVIT21/Personal-Expense-Tracker/main/docs/screenshots/login.png)
+D:\Personal-Expense-Tracker\docs\screenshots\login.png
 
 **### 10.2 Registration Page**
-![Registration Page](https://raw.githubusercontent.com/JADAVDHRUVIT21/Personal-Expense-Tracker/main/docs/screenshots/register.png)
+D:\Personal-Expense-Tracker\docs\screenshots\register.png
 
 **### 10.3 Dashboard**
-![Dashboard](https://raw.githubusercontent.com/JADAVDHRUVIT21/Personal-Expense-Tracker/main/docs/screenshots/dashboard.png)
+D:\Personal-Expense-Tracker\docs\screenshots\dashboard.png
 
 **### 10.4 Expense Page**
-![Expense Page](https://raw.githubusercontent.com/JADAVDHRUVIT21/Personal-Expense-Tracker/main/docs/screenshots/expense.png)
+D:\Personal-Expense-Tracker\docs\screenshots\expense.png
 
 **### 10.5 Category Page**
-![Category Page](https://raw.githubusercontent.com/JADAVDHRUVIT21/Personal-Expense-Tracker/main/docs/screenshots/category.png)
+D:\Personal-Expense-Tracker\docs\screenshots\category.png
 
 **### 10.6 Budget Page**
-![Budget Page](https://raw.githack.com/JADAVDHRUVIT21/Personal-Expense-Tracker/main/docs/screenshots/budget.png)
+D:\Personal-Expense-Tracker\docs\screenshots\budget.png
 
 **### 10.7 My Profile**
-![My Profile](https://raw.githubusercontent.com/JADAVDHRUVIT21/Personal-Expense-Tracker/main/docs/screenshots/profile.png)
+D:\Personal-Expense-Tracker\docs\screenshots\profile.png
 
 **### 10.8 Logout Confirmation**
-![Logout Confirmation](https://raw.githubusercontent.com/JADAVDHRUVIT21/Personal-Expense-Tracker/main/docs/screenshots/logout-confirmation.png)
+D:\Personal-Expense-Tracker\docs\screenshots\logout-confirmation.png
 
 **### 10.9 Swagger API Documentation**
-![Swagger API Documentation](https://raw.githubusercontent.com/JADAVDHRUVIT21/Personal-Expense-Tracker/main/docs/screenshots/swagger.png)
+D:\Personal-Expense-Tracker\docs\screenshots\swagger.png
 ### Screenshot Checklist
 
 □ Login page
