@@ -590,26 +590,3 @@ Migrations: Alembic
 
 GitHub Repository: https://github.com/JADAVDHRUVIT21/Personal-Expense-Tracker
 
-
----
-
-### Summary of what changed
-
-| Change | Details |
-|---|---|
-| **New screenshots added** | 10.4 Expense, 10.5 Category, 10.6 Budget pages — with descriptions |
-| **Numbering fixed** | Old doc skipped 10.5; now sequential (10.1 → 10.9) |
-| **Screenshot checklist** | Added Expense / Category / Budget entries |
-| **Table of Contents** | Updated (list same, but sections referenced correctly) |
-| **Core Features** | Added Expense Management, Category Management, Budget Management |
-| **Use Cases** | Added Use Case 6 (Expenses), 7 (Categories), 8 (Budgets) |
-| **Application Workflow** | Added Expense, Category, Budget workflows |
-| **API Documentation** | Added endpoint table for expenses/categories/budgets |
-| **Project Information** | Filled in: Dhruvit Jadav, Labmentix, GitHub URL |
-| **Git clone command** | Replaced placeholder with real repo URL |
-| **Architecture diagram** | Added expense/category/budget pages note |
-| **Objectives** | Added expense, category, budget goals |
-
-### To actually add the images on GitHub
-
-Save your screenshots into the repo at these exact paths:
