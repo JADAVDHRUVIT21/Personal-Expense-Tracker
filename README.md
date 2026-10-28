@@ -427,7 +427,7 @@ Screenshots are important because they demonstrate the actual working applicatio
 ![Category Page](https://raw.githubusercontent.com/JADAVDHRUVIT21/Personal-Expense-Tracker/main/docs/screenshots/category.png)
 
 **### 10.6 Budget Page**
-![Budget Page](https://raw.githubusercontent.com/JADAVDHRUVIT21/Personal-Expense-Tracker/main/docs/screenshots/budget.png)
+![Budget Page](https://raw.githack.com/JADAVDHRUVIT21/Personal-Expense-Tracker/main/docs/screenshots/budget.png)
 
 **### 10.7 My Profile**
 ![My Profile](https://raw.githubusercontent.com/JADAVDHRUVIT21/Personal-Expense-Tracker/main/docs/screenshots/profile.png)
