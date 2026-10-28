@@ -411,78 +411,32 @@ The application runs its logout logic and navigates to /login.
 
 Screenshots are important because they demonstrate the actual working application.
 
-### 10.1 Login Page
+**### 10.1 Login Page**
+![Login Page](https://raw.githubusercontent.com/JADAVDHRUVIT21/Personal-Expense-Tracker/main/docs/screenshots/login.png)
 
-Screenshot: docs/screenshots/login.png
+**### 10.2 Registration Page**
+![Registration Page](https://raw.githubusercontent.com/JADAVDHRUVIT21/Personal-Expense-Tracker/main/docs/screenshots/register.png)
 
-Show the login form and explain how existing users enter their credentials to sign in.
+**### 10.3 Dashboard**
+![Dashboard](https://raw.githubusercontent.com/JADAVDHRUVIT21/Personal-Expense-Tracker/main/docs/screenshots/dashboard.png)
 
-https://docs/screenshots/login.png
+**### 10.4 Expense Page**
+![Expense Page](https://raw.githubusercontent.com/JADAVDHRUVIT21/Personal-Expense-Tracker/main/docs/screenshots/expense.png)
 
-### 10.2 Registration Page
+**### 10.5 Category Page**
+![Category Page](https://raw.githubusercontent.com/JADAVDHRUVIT21/Personal-Expense-Tracker/main/docs/screenshots/category.png)
 
-Screenshot: docs/screenshots/register.png
+**### 10.6 Budget Page**
+![Budget Page](https://raw.githubusercontent.com/JADAVDHRUVIT21/Personal-Expense-Tracker/main/docs/screenshots/budget.png)
 
-Show the registration form and explain how a new user creates an account.
+**### 10.7 My Profile**
+![My Profile](https://raw.githubusercontent.com/JADAVDHRUVIT21/Personal-Expense-Tracker/main/docs/screenshots/profile.png)
 
-https://docs/screenshots/register.png
+**### 10.8 Logout Confirmation**
+![Logout Confirmation](https://raw.githubusercontent.com/JADAVDHRUVIT21/Personal-Expense-Tracker/main/docs/screenshots/logout-confirmation.png)
 
-### 10.3 Dashboard
-
-Screenshot: docs/screenshots/dashboard.png
-
-Show the dashboard with summary cards, totals, and shortcuts.
-
-https://docs/screenshots/dashboard.png
-
-### 10.4 Expense Page
-
-Screenshot: docs/screenshots/expense.png
-
-The Expense page displays all recorded expenses in a table or card layout, showing amount, category, date, and description. Users can add new expenses using the Add Expense button, edit an existing record, or delete entries. Totals and filters are shown at the top.
-
-https://docs/screenshots/expense.png
-
-### 10.5 Category Page
-
-Screenshot: docs/screenshots/category.png
-
-The Category page lists all expense categories created by the user (e.g., Food, Travel, Utilities). Users can add new categories with the Add Category button and remove ones no longer needed. Categories are used to group expenses on the Expense page and in Budget tracking.
-
-https://docs/screenshots/category.png
-
-### 10.6 Budget Page
-
-Screenshot: docs/screenshots/budget.png
-
-The Budget page shows monthly budget limits per category and the amount spent against each. Progress bars help visualize how close a user is to their budget. Users can add or update a budget using the Set Budget action.
-
-https://docs/screenshots/budget.png
-
-### 10.7 My Profile
-
-Screenshot: docs/screenshots/profile.png
-
-The profile page shows the name field (editable) and email field (read-only), along with the Save Name button and password-change form.
-
-https://docs/screenshots/profile.png
-
-### 10.8 Logout Confirmation
-
-Screenshot: docs/screenshots/logout-confirmation.png
-
-Show the confirmation dialog that appears after clicking Logout.
-
-https://docs/screenshots/logout-confirmation.png
-
-### 10.9 Swagger API Documentation
-
-Screenshot: docs/screenshots/swagger.png
-
-Open http://127.0.0.1:8000/docs while the backend is running and capture the actual endpoints.
-
-https://docs/screenshots/swagger.png
-
+**### 10.9 Swagger API Documentation**
+![Swagger API Documentation](https://raw.githubusercontent.com/JADAVDHRUVIT21/Personal-Expense-Tracker/main/docs/screenshots/swagger.png)
 ### Screenshot Checklist
 
 □ Login page
